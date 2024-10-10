@@ -6,7 +6,7 @@
             "id": "42d48e66-6898-4cd1-bf66-a90a4c8b52c5",
             "actions": [
                 {
-                    "name": "Look",
+                    "name": "Lookf",
                     "type": "Value",
                     "id": "eaf570c8-3018-48b4-b7fa-4eec69580951",
                     "expectedControlType": "Vector2",
@@ -23,7 +23,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "Look",
+                    "action": "Lookf",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -34,7 +34,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse;Touch",
-                    "action": "Look",
+                    "action": "Lookf",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -45,7 +45,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
-                    "action": "Look",
+                    "action": "Lookf",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
