@@ -1,43 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMove : MonoBehaviour
 {
-    [SerializeField] float speed = 5f;
+    bool IsRun = false;
+    [SerializeField] float Walkspeed = 7f;
+    [SerializeField] float Runspeed = 10f;
+    float speed;
     [SerializeField] float mouseSpeed = 8f;
     private float gravity = -10f;
-    private CharacterController cc;
-    private Vector3 mov = Vector3.zero;
 
-
-    private float mouseX;
+    private Vector2 movementValue;
+    private float lookValue;
 
 
     // Start is called before the first frame update
-    void Start()
-    {
-        cc = GetComponent<CharacterController>();
-    }
 
     // Update is called once per frame
     void Update()
     {
-        mouseX += Input.GetAxis("Mouse X") * mouseSpeed;
-        transform.localEulerAngles = new Vector3(0, mouseX, 0);
+        if (IsRun)
+            speed = Runspeed;
+        else speed = Walkspeed;
 
-        if (cc.isGrounded)
-        {
-            mov = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-            mov = cc.transform.TransformDirection(mov);
-        }
+        transform.Translate(
+            movementValue.x * Time.deltaTime,
+            0,
+            movementValue.y * Time.deltaTime);
 
-        else
-        {
-            mov.y += gravity * Time.deltaTime;
-        }
-
-        cc.Move(mov * Time.deltaTime * speed);
-
+        transform.Rotate(0, lookValue * Time.deltaTime, 0);
     }
+
+    public void OnMove(InputValue v)
+    {
+        movementValue = v.Get<Vector2>()*speed;
+    }
+
+    public void OnDash()
+    {
+        IsRun = !IsRun;
+        Debug.Log(IsRun);
+    }
+
+    public void OnLook(InputValue v)
+    {
+        lookValue = v.Get<Vector2>().x * mouseSpeed;
+    }
+
 }

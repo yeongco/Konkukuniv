@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!1107 &-6808966436137782091
 AnimatorStateMachine:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -23,7 +23,7 @@ AnimatorStateMachine:
     m_Position: {x: 260, y: 520, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6735463079041731865}
-    m_Position: {x: 270, y: 570, z: 0}
+    m_Position: {x: 260, y: 570, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5223657843824171043}
     m_Position: {x: 260, y: 620, z: 0}
@@ -42,7 +42,7 @@ AnimatorStateMachine:
   m_DefaultState: {fileID: -1838007430129614422}
 --- !u!1102 &-6735463079041731865
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -69,7 +69,7 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1102 &-1838007430129614422
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -96,7 +96,7 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1102 &-1194815486639505671
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -145,7 +145,7 @@ AnimatorController:
     m_Controller: {fileID: 9100000}
 --- !u!1102 &2820855442588275859
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -171,7 +171,7 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1102 &4309734851527464550
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -198,7 +198,7 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1102 &5223657843824171043
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -225,7 +225,7 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1102 &8590839378983354774
 AnimatorState:
-  serializedVersion: 5
+  serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
