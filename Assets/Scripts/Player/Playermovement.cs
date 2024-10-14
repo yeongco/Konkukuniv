@@ -1,20 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
+using UnityEditor.Rendering.LookDev;
+using UnityEditor.Timeline.Actions;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 public class PlayerMove : MonoBehaviour
 {
-    bool IsRun = false;
+    public Rigidbody rb;
+    public bool IsRun = false;
     [SerializeField] float Walkspeed = 7f;
     [SerializeField] float Runspeed = 10f;
-    float speed;
+    public float speed;
     [SerializeField] float mouseSpeed = 8f;
-    private float gravity = -10f;
 
     public GameObject Camera;
 
-    private Vector2 movementValue;
+    private Vector3 movementValue;
     private float lookValue;
     private float mouseY;
 
@@ -33,12 +37,9 @@ public class PlayerMove : MonoBehaviour
             speed = Runspeed;
         else speed = Walkspeed;
 
-        transform.Translate(
-            movementValue.x * Time.deltaTime,
-            0,
-            movementValue.y * Time.deltaTime);
+        rb.AddRelativeForce(movementValue * speed);
 
-        transform.Rotate(0, lookValue * Time.deltaTime, 0);
+        rb.AddRelativeTorque(0, lookValue * Time.deltaTime, 0);
 
         mouseY = Mathf.Clamp(mouseY, -50f, 30f);
         Camera.transform.localEulerAngles = new Vector3(-mouseY, 0, 0);
@@ -46,14 +47,21 @@ public class PlayerMove : MonoBehaviour
 
     public void OnMove(InputValue v)
     {
-        movementValue = v.Get<Vector2>()*speed;
+        Vector2 input = v.Get<Vector2>().normalized;
+        if(input != null)
+        {
+            movementValue = new Vector3(input.x, 0f, input.y);
+        }
     }
 
-    public void OnDash()
+/*    public void OnDash(InputAction.CallbackContext context)
     {
-        IsRun = !IsRun;
-        Debug.Log(IsRun);
-    }
+        if (context.performed)
+        {
+            IsRun = !IsRun;
+            Debug.Log(IsRun);
+        }
+    }*/
 
     public void OnLook(InputValue v)
     {
