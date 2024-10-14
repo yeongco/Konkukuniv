@@ -15,7 +15,6 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] float Runspeed = 10f;
     public float speed;
     [SerializeField] float mouseSpeed = 8f;
-    private float gravity = -10f;
 
     public GameObject Camera;
 

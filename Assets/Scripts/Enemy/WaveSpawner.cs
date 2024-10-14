@@ -18,7 +18,7 @@ public class WaveSpawner : MonoBehaviour
 
     void Spawn()
     {
-        Instantiate(prefab, transform.position, transform.rotation);
+        Instantiate(prefab, transform.position+new Vector3(Random.Range(0f, 4f), 0, Random.Range(0f, 4f)), transform.rotation);
     }
 
     void EndSpawner()

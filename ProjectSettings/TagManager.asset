@@ -5,16 +5,17 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Dark
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Enemy
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Bullet
+  - Player
+  - Smoke
   - 
   - 
   - 
