@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
-using System;
+using NUnit.Framework;
+using System.Collections.Generic;
 using System.Runtime;
 using UnityEngine;
 using UnityEngine.AI;
@@ -11,17 +12,28 @@ public class EnemyFSM : MonoBehaviour
     private const float V = 2f;
     private State currentState;
     private NavMeshAgent agent;
-    public Transform[] patrolPoints; // 순찰 경로 포인트들
-    private int currentPatrolIndex;
+    private List<Transform> patrolPoints = new List<Transform>(); // 순찰 경로 포인트들
+    private GameObject player;
+    private int currentPatrolIndex = 0;
     System.Random rand = new System.Random();
     private Animator anim;
 
+
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+        agent = this.GetComponent<NavMeshAgent>();
+        player = GameObject.FindWithTag("Player");
+    }
     void Start()
     {
-        agent = this.GetComponent<NavMeshAgent>();
-        currentPatrolIndex = rand.Next(0,patrolPoints.Length);
+        foreach (GameObject point in GameObject.FindGameObjectsWithTag("Respawn"))
+        {
+            patrolPoints.Add(point.transform);
+        }
+        currentPatrolIndex = Random.Range(0, patrolPoints.Count);
         ChangeState(State.Patrol);
-        anim = GetComponent<Animator>();
+        Debug.Log(patrolPoints.Count + " " + currentPatrolIndex);
     }
 
     public void ChangeState(State newState)
@@ -44,7 +56,7 @@ public class EnemyFSM : MonoBehaviour
                 break;
         }
     }
-   
+
     void Update()
     {
         switch (currentState)
@@ -56,11 +68,13 @@ public class EnemyFSM : MonoBehaviour
                 }
                 break;
             case State.Chase:
-                agent.SetDestination(GameObject.FindGameObjectWithTag("Player").transform.position);
+                agent.SetDestination(player.transform.position);
                 break;
             case State.Attack:
-                // 플레이어를 공격하는 로직 작성
-                
+                AttackPlayer();
+                break;
+            case State.Die:
+                DIe();
                 break;
         }
     }
@@ -68,32 +82,55 @@ public class EnemyFSM : MonoBehaviour
     private void Patrol()
     {
         agent.speed = V; // 느린 속도로 순찰
+        agent.isStopped = false;
         GoToNextPatrolPoint();
     }
 
     private void GoToNextPatrolPoint()
     {
-        agent.isStopped = false;
-        if (patrolPoints.Length == 0) return;
+        if (patrolPoints.Count == 0) return;
         agent.destination = patrolPoints[currentPatrolIndex].position;
-        currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
+        anim.SetBool("Walk", true);
+        anim.SetBool("Run", false);
+        currentPatrolIndex = currentPatrolIndex = Random.Range(0, patrolPoints.Count);
+
     }
 
     private void ChasePlayer()
     {
+        //Debug.Log(agent);
         agent.isStopped = false;
-        agent.speed = 5f; // 빠른 속도로 추적
-        Debug.Log("Chasing the player!");
+        anim.SetBool("Attack", false);
+        anim.SetBool("Walk", false);
+        anim.SetBool("Run", true);
+        //agent.speed = 5f; // 빠른 속도로 추적
+        //Debug.Log("Chasing the player!");
     }
 
     private void AttackPlayer()
     {
+        anim.SetBool("Attack", true);
         agent.isStopped = true; // 공격 시 멈춤
-        PlayerManager.instance.LooseHP();
+        Invoke("AttackComplete", 0.5f);
+    }
+
+    public void AttackComplete()
+    {
+        //SoundManager.Instance.PlaySFX("EnemyAttack");
+        if (Vector3.Distance(transform.position, player.transform.position) < 3f && currentState != State.Die)
+            PlayerManager.instance.LooseHP();
     }
 
     private void DIe()
     {
+        //Debug.Log("dead");
         agent.isStopped = true;
+        anim.SetBool("Die", true);
+        //Debug.Log(anim.GetParameter(2));
+    }
+
+    public void playsound(string sound)
+    {
+        SoundManager.Instance.PlaySFX(sound);
     }
 }

@@ -23,12 +23,14 @@ public class PlayerShooting : MonoBehaviour
             GameObject clone = Instantiate(prefab1);
             clone.transform.position = ShootPoint.transform.position;
             clone.transform.rotation = ShootPoint.transform.rotation * Quaternion.Euler(90, 0, 0);
+            SoundManager.Instance.PlaySFX("Bullet");
         }
         else
         {
             GameObject clone = Instantiate(prefab2);
             clone.transform.position = ShootPoint.transform.position;
             clone.transform.rotation = ShootPoint.transform.rotation;
+            SoundManager.Instance.PlaySFX("Fire");
         }
 
 

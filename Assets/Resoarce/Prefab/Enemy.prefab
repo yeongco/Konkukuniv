@@ -2733,9 +2733,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1.8
+  m_Height: 1.84
   m_Direction: 1
-  m_Center: {x: 0, y: 0.9, z: 0}
+  m_Center: {x: 0, y: 0.88, z: 0}
 --- !u!114 &-3859553511209471267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2794,7 +2794,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 1.8
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -2810,6 +2810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 812f5d6c433e6ad4c873d0ad606766c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Is_Dead: 0
 --- !u!114 &4486202203384304701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2822,11 +2823,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7961013610867944a90204e65bad6cfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patrolPoints:
-  - {fileID: 2239145138282331977, guid: 7974d1d503e1ea245a7ea3e08777be89, type: 3}
-  - {fileID: 2239145138282331977, guid: 7974d1d503e1ea245a7ea3e08777be89, type: 3}
-  - {fileID: 2239145138282331977, guid: 7974d1d503e1ea245a7ea3e08777be89, type: 3}
-  - {fileID: 2239145138282331977, guid: 7974d1d503e1ea245a7ea3e08777be89, type: 3}
 --- !u!1 &8616643854684188581
 GameObject:
   m_ObjectHideFlags: 0

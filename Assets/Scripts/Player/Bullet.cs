@@ -25,7 +25,8 @@ public class Bullet : MonoBehaviour
             GameObject clone = Instantiate(prefab);
             clone.transform.position = other.transform.position - new Vector3(0f, 0.5f, 0f);
             clone.transform.rotation = transform.rotation;
-            Destroy(other.gameObject, 0.3f);
+            other.GetComponent<AiEnemy>().Is_Dead = true;
+            Destroy(other.gameObject, 2f);
         }
     }
 }

@@ -15,6 +15,8 @@ public class Enemy : MonoBehaviour
     private void OnDestroy()
     {
         ScoreManager.instance.amount += score;
+        ScoreManager.instance.SetScore();
+
         EnemyManager.instance.enemies.Remove(this);
     }
 

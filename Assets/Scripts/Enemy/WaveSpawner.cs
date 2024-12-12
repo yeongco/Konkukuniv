@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class WaveSpawner : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class WaveSpawner : MonoBehaviour
 
     void Spawn()
     {
-        Instantiate(prefab, transform.position+new Vector3(Random.Range(0f, 4f), 0, Random.Range(0f, 4f)), transform.rotation);
+        Instantiate(prefab, transform.position+new Vector3(Random.Range(-10f, 10f), 0, Random.Range(-10f, 10f)), transform.rotation);
     }
 
     void EndSpawner()
