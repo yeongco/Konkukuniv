@@ -75,6 +75,8 @@ namespace StarterAssets
         [Tooltip("카메라 포지션움직이는거 잠글까?")]
         public bool LockCameraPosition = false;
 
+        [Tooltip("ESC UI")]
+        private GameObject _pauseMenuUI; // UI 오브젝트 참조
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
@@ -150,15 +152,25 @@ namespace StarterAssets
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
+            _pauseMenuUI = GameObject.Find("PauseMenu");
+            if (_pauseMenuUI != null)
+            {
+                _pauseMenuUI.SetActive(false); // 시작 시 비활성화
+            }
         }
 
         private void Update()
         {
             _hasAnimator = TryGetComponent(out _animator);
 
-            JumpAndGravity();
-            GroundedCheck();
-            Move();
+            // 일시정지 상태를 체크
+
+            if (!GamePause()) // 일시정지 상태가 아니면 동작 업데이트
+            {
+                JumpAndGravity();
+                GroundedCheck();
+                Move();
+            }
         }
 
         private void LateUpdate()
@@ -385,6 +397,30 @@ namespace StarterAssets
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
+            }
+        }
+
+        private bool GamePause()
+        {
+            if (_input.paused)
+            {
+                // 일시정지 활성화
+                Time.timeScale = 0f; // 게임 시간 정지
+                _pauseMenuUI?.SetActive(true); // PauseMenu UI 활성화
+                Cursor.lockState = CursorLockMode.None; // 커서 잠금 해제
+                Cursor.visible = true; // 커서 보이기
+                LockCameraPosition = true;
+                return true;
+            }
+            else
+            {
+                // 일시정지 해제
+                Time.timeScale = 1f; // 게임 시간 재개
+                _pauseMenuUI?.SetActive(false); // PauseMenu UI 비활성화
+                LockCameraPosition = false;
+                Cursor.lockState = CursorLockMode.Locked; // 커서 잠금
+                Cursor.visible = false; // 커서 숨기기
+                return false;
             }
         }
     }

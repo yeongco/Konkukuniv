@@ -1,7 +1,7 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
-using UnityEditor.Rendering.LookDev;
+//using UnityEditor.Rendering.LookDev;
 using UnityEditor.Timeline.Actions;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -54,14 +54,14 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-/*    public void OnDash(InputAction.CallbackContext context)
+*//*    public void OnDash(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
             IsRun = !IsRun;
             Debug.Log(IsRun);
         }
-    }*/
+    }*//*
 
     public void OnLook(InputValue v)
     {
@@ -69,4 +69,4 @@ public class PlayerMove : MonoBehaviour
         mouseY += v.Get<Vector2>().y * 0.1f;
     }
 
-}
+}*/

@@ -12,6 +12,7 @@ namespace StarterAssets
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
+		public bool paused;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -19,9 +20,13 @@ namespace StarterAssets
 		[Header("Mouse Cursor Settings")]
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
+        bool WhatBullet = true;
+        public GameObject prefab1;
+        public GameObject prefab2;
+        public GameObject ShootPoint;
 
 #if ENABLE_INPUT_SYSTEM
-		public void OnMove(InputValue value)
+        public void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
 		}
@@ -43,10 +48,42 @@ namespace StarterAssets
 		{
 			SprintInput(value.isPressed);
 		}
+
+        public void OnChange()
+        {
+            if (paused) return;
+            WhatBullet = !WhatBullet;
+        }
+
+        public void OnFire()
+        {
+			if (paused) return;
+            if (WhatBullet)
+            {
+                GameObject clone = Instantiate(prefab1);
+                clone.transform.position = ShootPoint.transform.position;
+                clone.transform.rotation = ShootPoint.transform.rotation * Quaternion.Euler(90, 0, 0);
+                SoundManager.Instance.PlaySFX("Bullet");
+            }
+            else
+            {
+                GameObject clone = Instantiate(prefab2);
+                clone.transform.position = ShootPoint.transform.position;
+                clone.transform.rotation = ShootPoint.transform.rotation;
+                SoundManager.Instance.PlaySFX("Fire");
+            }
+
+
+        }
+
+        public void OnPause(InputValue value)
+        {
+            ESCInput(value.isPressed);
+        }
 #endif
 
 
-		public void MoveInput(Vector2 newMoveDirection)
+        public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;
 		} 
@@ -75,6 +112,11 @@ namespace StarterAssets
 		{
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
-	}
+
+        public void ESCInput(bool newESCState)
+        {
+            paused = !paused;
+        }
+    }
 	
 }
